@@ -1,6 +1,5 @@
 # netflix
 
-- Search user GitHub
 - List movies from api
 
 
