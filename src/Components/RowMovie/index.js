@@ -1,7 +1,7 @@
 import React from 'react';
-import { StyleSheet, View, Image, Text } from 'react-native';
+import { StyleSheet, View, Image, Text, TouchableOpacity } from 'react-native';
 
-export default function RowMoview({ item }) {
+const RowMoview = ({ navigation, item }) => {
 
     const start = () => {
         var stars = "";
@@ -9,7 +9,9 @@ export default function RowMoview({ item }) {
     }
 
     return (
-        <View style={styles.content}>
+        <TouchableOpacity
+            onPress={() => navigation.navigate('Details', { item })}
+            style={styles.content}>
             <Image
                 style={styles.image}
                 source={{ uri: item.medium_cover_image }}
@@ -20,7 +22,7 @@ export default function RowMoview({ item }) {
                 <Text style={{ ...styles.rating, color: item.rating > 6 ? 'white' : 'red' }}>{`Nota: ${item.rating}`}</Text>
                 <Text style={styles.stars}>{start()}</Text>
             </View>
-        </View>
+        </TouchableOpacity>
     )
 }
 
@@ -57,3 +59,5 @@ const styles = StyleSheet.create({
         marginVertical: 2,
     }
 });
+
+export default RowMoview;

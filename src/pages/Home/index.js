@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { SafeAreaView, FlatList, View, Text } from 'react-native';
+import { SafeAreaView, FlatList } from 'react-native';
 
-import RowMoview from './styles';
+import RowMoview from '../../Components/RowMovie';
 
 import api from '../../services/api';
 
-export default function Home() {
+export default function Home({ navigation }) {
 
     const [movies, setMovies] = useState([]);
 
@@ -18,7 +18,7 @@ export default function Home() {
         try {
 
             const response = await api.get();
-            
+
             setMovies(response.data.data.movies);
 
         } catch (error) {
@@ -32,7 +32,7 @@ export default function Home() {
             <FlatList
                 data={movies}
                 keyExtractor={item => String(item.id)}
-                renderItem={({ item }) => <RowMoview item={item} />} />
+                renderItem={({ item }) => <RowMoview navigation={navigation} item={item} />} />
         </SafeAreaView>
     );
 }
