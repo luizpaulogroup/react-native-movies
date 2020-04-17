@@ -1,5 +1,5 @@
 import React from 'react';
-import { SafeAreaView, StyleSheet, View, Image, Text, ImageBackground } from 'react-native';
+import { SafeAreaView, StyleSheet, View, Image, Text, ImageBackground, ScrollView } from 'react-native';
 
 export default function Details({ route: { params: { item } } }) {
 
@@ -20,14 +20,25 @@ export default function Details({ route: { params: { item } } }) {
                         source={{ uri: item.medium_cover_image }}
                         resizeMode="cover" />
                     <View style={styles.info}>
-                        <Text style={styles.title}>{item.title}</Text>
+                        <Text style={styles.title}>{item.title_long}</Text>
                         <Text style={styles.year}>{`Ano: ${item.year}`}</Text>
                         <Text style={{ ...styles.rating, color: item.rating > 6 ? 'white' : 'red' }}>{`Nota: ${item.rating}`}</Text>
                         <Text style={styles.stars}>{start()}</Text>
                     </View>
                 </View>
                 <View style={styles.contentMain}>
-
+                    <ScrollView>
+                        <View>
+                            <Text style={styles.title_description_full}>Descrição</Text>
+                            <Text style={styles.description_full}>{item.description_full}</Text>
+                        </View>
+                        <View>
+                            <Text style={styles.title_description_full}>Gêneros</Text>
+                            {item.genres.map(genre => (
+                                <View key={genre}><Text style={styles.description_full}>{genre}</Text></View>
+                            ))}
+                        </View>
+                    </ScrollView>
                 </View>
             </ImageBackground>
         </SafeAreaView>
@@ -40,20 +51,14 @@ const styles = StyleSheet.create({
     },
     contentHeader: {
         padding: 10,
-        flexDirection: 'row',
-    },
-    contentMain: {
-        flex: 1,
-        padding: 10,
-        flexDirection: 'row',
-        backgroundColor: 'black'
+        flexDirection: 'column',
     },
     image: {
         width: 100,
         height: 100
     },
     info: {
-        paddingLeft: 5,
+
     },
     title: {
         color: '#FFF',
@@ -71,5 +76,22 @@ const styles = StyleSheet.create({
     stars: {
         color: 'yellow',
         marginVertical: 2,
-    }
+    },
+    contentMain: {
+        flex: 1,
+        padding: 10,
+        flexDirection: 'row',
+        backgroundColor: 'black'
+    },
+    title_description_full: {
+        color: '#999',
+        fontWeight: 'bold',
+        fontSize: 20,
+        marginVertical: 5
+    },
+    description_full: {
+        color: 'white',
+        fontSize: 16,
+        marginVertical: 5
+    },
 });
